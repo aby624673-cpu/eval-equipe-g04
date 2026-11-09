@@ -70,4 +70,62 @@ public class Plateforme {
         }
         return copie;
     }
+        public int[] compterParType() {
+        int[] c = new int[3];                   // {standard, premium, marchand}
+        for (int i = 0; i < nombre; i++) {
+            if (comptes[i] instanceof ComptePremium) {
+                c[1]++;                         // AVANT CompteStandard !
+            } else if (comptes[i] instanceof CompteStandard) {
+                c[0]++;
+            } else if (comptes[i] instanceof CompteMarchand) {
+                c[2]++;
+            }
+        }
+        return c;
+    }
+
+    public void trierParSolde() {
+        for (int i = 1; i < nombre; i++) {
+            Compte enMain = comptes[i];         // le compte qu'on va placer
+            int j = i - 1;
+            while (j >= 0 && passeAvant(enMain, comptes[j])) {
+                comptes[j + 1] = comptes[j];    // on décale d'une case à droite
+                j--;
+            }
+            comptes[j + 1] = enMain;            // on pose le compte dans le trou
+        }
+    }
+
+    private boolean passeAvant(Compte a, Compte b) {
+        if (a.getSolde() != b.getSolde()) {
+            return a.getSolde() > b.getSolde(); // le plus riche d'abord
+        }
+        return a.getNumero().compareTo(b.getNumero()) < 0;  // puis le plus petit numéro
+    }
+
+    public Compte[] comptes() {
+        Compte[] copie = new Compte[nombre];
+        for (int i = 0; i < nombre; i++) {
+            copie[i] = comptes[i];
+        }
+        return copie;
+    }
+
+    public Compte[] comptesAuDessus(long seuil) {
+        int nb = 0;                             // 1) compter
+        for (int i = 0; i < nombre; i++) {
+            if (comptes[i].getSolde() >= seuil) {
+                nb++;
+            }
+        }
+        Compte[] res = new Compte[nb];          // 2) taille exacte
+        int k = 0;
+        for (int i = 0; i < nombre; i++) {      // 3) remplir
+            if (comptes[i].getSolde() >= seuil) {
+                res[k] = comptes[i];
+                k++;
+            }
+        }
+        return res;
+    }
 }
