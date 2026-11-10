@@ -7,11 +7,11 @@ public class CompteMarchand extends Compte {
         super(numero, titulaire);
         this.enseigne = enseigne;
     }
-
+    //accesseur de l attribut enseigne
     public String getEnseigne() {
         return enseigne;
     }
-
+    //redefinition des methodes de la classe compte sur la classe CompteMarchant.java
     @Override
     public long frais(long montant) {
         return montant * TAUX_FRAIS / 2000;
