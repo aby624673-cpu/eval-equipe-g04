@@ -6,16 +6,14 @@ public abstract class Compte {
     private String titulaire;
     private long solde;
 
-    
+    // attribut declarees avec final 
     public static final int TAUX_FRAIS = 10 + 4 % 6;                 
     public static final long PLAFOND_RETRAIT = 150_000 + 10_000 * (4 % 8);
      public static final long SEUIL_PREMIUM = 50_000;
      public static final int CAPACITE = 20; 
+     private static int nombreCrees = 0;
 
-    
-    private static int nombreCrees = 0;
-
-    // Constructeur
+    // Constructeur de la classe mere
     public Compte(String numero, String titulaire) {
         this.numero = numero;
         this.titulaire = titulaire;
@@ -23,7 +21,7 @@ public abstract class Compte {
         nombreCrees++;
     }
 
-    // Accesseurs
+    // Accesseurs 
     public String getNumero() {
         return numero;
     }
@@ -73,7 +71,7 @@ public abstract class Compte {
     public static int getNombreCrees() {
         return nombreCrees;
     }
-    
+  //redefinition des methodes toString() ,  equals(),  hashCode()
 @Override
 public String toString() {
     return "[" + type() + "] " + numero + " "
